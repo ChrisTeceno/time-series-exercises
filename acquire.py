@@ -84,8 +84,12 @@ def get_sales(usecache=True):
     return pd.DataFrame(df)
 
 
-def join_data():
-    """Join the data together"""
+def join_data(usecache=True):
+    """Join the data together or use cached data"""
+    filename = "joined.csv"
+    if usecache and os.path.exists(filename):
+        print("Using cached data")
+        return pd.read_csv(filename)
     items = get_items()
     stores = get_stores()
     sales = get_sales()
@@ -94,8 +98,12 @@ def join_data():
     return df
 
 
-def get_german_power():
+def get_german_power(usecache=True):
     """Get the data from the German power consumption dataset"""
+    filename = "german_power.csv"
+    if usecache and os.path.exists(filename):
+        print("Using cached data")
+        return pd.read_csv(filename)
     df = pd.read_csv(
         "https://raw.githubusercontent.com/jenfly/opsd/master/opsd_germany_daily.csv"
     )

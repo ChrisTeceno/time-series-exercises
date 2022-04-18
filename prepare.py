@@ -1,9 +1,14 @@
 import pandas as pd
 import acquire
+import os
 
 
-def prep_store_data(df):
-    """Prepare the data for analysis"""
+def prep_store_data(df=acquire.join_data(), usecache=True):
+    """Prepare the data for analysis, used cache if available"""
+    filename = "prepped_store.csv"
+    if usecache and os.path.exists(filename):
+        print("Using cached data")
+        return pd.read_csv(filename)
     # convert sale_date to datetime
     df["sale_date"] = pd.to_datetime(df["sale_date"])
     # sort sale_date and use as index
