@@ -3,12 +3,14 @@ import acquire
 import os
 
 
-def prep_store_data(df=acquire.join_data(), usecache=True):
+def prep_store_data(df, usecache=True):
     """Prepare the data for analysis, used cache if available"""
     filename = "prepped_store.csv"
     if usecache and os.path.exists(filename):
-        print("Using cached data")
-        return pd.read_csv(filename)
+        print("Using cached data for prepped store")
+        df = pd.read_csv(filename)
+        df.index = pd.to_datetime(df.index)
+        return df
     # convert sale_date to datetime
     df["sale_date"] = pd.to_datetime(df["sale_date"])
     # sort sale_date and use as index
@@ -21,6 +23,8 @@ def prep_store_data(df=acquire.join_data(), usecache=True):
     df.rename(columns={"sale_amount": "quantity_sold"}, inplace=True)
     # make column for sales_total
     df["sales_total"] = df["quantity_sold"] * df["item_price"]
+    print("Writing data to csv")
+    df.to_csv(filename, index_label=False)
     return df
 
 

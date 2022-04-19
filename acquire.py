@@ -8,7 +8,7 @@ def get_items(usecache=True):
     Otherwise, it will make a request to the API and return the data."""
     filename = "items.csv"
     if usecache and os.path.exists(filename):
-        print("Using cached data")
+        print("Using cached data for items")
         return pd.read_csv(filename)
     print("Making request to API")
     domain = "https://api.data.codeup.com/"
@@ -35,7 +35,7 @@ def get_stores(usecache=True):
     Otherwise, it will make a request to the API and return the data."""
     filename = "stores.csv"
     if usecache and os.path.exists(filename):
-        print("Using cached data")
+        print("Using cached data for stores")
         return pd.read_csv(filename)
     print("Making request to API")
     domain = "https://api.data.codeup.com/"
@@ -62,7 +62,7 @@ def get_sales(usecache=True):
     Otherwise, it will make a request to the API and return the data."""
     filename = "sales.csv"
     if usecache and os.path.exists(filename):
-        print("Using cached data")
+        print("Using cached data sales")
         return pd.read_csv(filename)
     print("Making request to API")
     domain = "https://api.data.codeup.com/"
@@ -88,7 +88,7 @@ def join_data(usecache=True):
     """Join the data together or use cached data"""
     filename = "joined.csv"
     if usecache and os.path.exists(filename):
-        print("Using cached data")
+        print("Using cached data for joined data")
         return pd.read_csv(filename)
     items = get_items()
     stores = get_stores()
